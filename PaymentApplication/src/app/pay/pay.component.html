@@ -1,0 +1,109 @@
+<!-- Display all Details -->
+<h2>All Payments</h2>
+<br>
+<table class="table table-stripped">
+  <tr>
+    <th>Payment ID</th>
+    <th>Owner Name</th>
+    <th>Card Number</th>
+    <th>Expiry Date</th>
+    <th>Security Code</th>
+    <th></th>
+    <th>Actions</th>
+  </tr>
+  <tr *ngFor="let item of items">
+    <td>{{item.paymentDetailId}}</td>
+    <td>{{item.cardOwnerName}}</td>
+    <td>{{item.cardNumber}}</td>
+    <td>{{item.expirationDate}}</td>
+    <td>{{item.securityCode}}</td>
+    <td><button class="btn btn-info">Details</button></td>
+    <td><button (click)="Edit()" class="btn btn-primary">Edit</button></td>
+    <td><button (click)="Delete()" class="btn btn-warning">Delete</button></td>
+  </tr>
+</table>
+
+
+<hr style="border: 2px solid black;">
+
+
+<!-- Add Payment Details -->
+<h1>Create</h1>
+<form #postForm="ngForm" (ngSubmit)="onSubmitPost(postForm)">
+  <div class="form-group">
+      <label for="cardNumber">Card Number</label> <br>
+      <input type="text" name="cardNumber" ngModel>
+  </div>
+  <div class="form-group">
+      <label for="cardOwnerName">Card Owner Name</label><br>
+      <input type="text" name="cardOwnerName"  ngModel>
+  </div>
+  <div class="form-group">
+      <label for="expirationDate">Expirty Date</label><br>
+      <input type="text" name="expirationDate" ngModel>
+  </div>
+  <div class="form-group">
+      <label for="securityCode">Security Code</label><br>
+      <input type="text" name="securityCode" ngModel>
+  </div>
+  <div class="form-group">
+      <button class="btn btn-primary my-3" type="submit">Submit</button>
+  </div>
+</form>
+<hr style="border: 2px solid black;">
+
+
+<!-- Display Details using ID -->
+<h2>Details of Selected Item</h2>
+<label for="paymentDetailId">Enter PaymentID:</label>
+<input type="number" id="paymentDetailId" [(ngModel)]="inputItemId" name="inputItemId">
+<button (click)="fetchDetails()">Fetch Details</button>
+
+<div *ngIf="selectedItemDetails && !idNotFound;else noDetails" >
+  <table class="table table-stripped">
+    <tr>
+      <th>Payment ID</th>
+      <th>Owner Name</th>
+      <th>Card Number</th>
+      <th>Expiry Date</th>
+      <th>Security Code</th>
+    </tr>
+    <tr>
+      <td>{{selectedItemDetails.paymentDetailId}}</td>
+      <td>{{selectedItemDetails.cardOwnerName}}</td>
+      <td>{{selectedItemDetails.cardNumber}}</td>
+      <td>{{selectedItemDetails.expirationDate}}</td>
+      <td>{{selectedItemDetails.securityCode}}</td>
+    </tr>
+  </table>
+  <!-- Add other properties as needed -->
+</div>
+<ng-template #noDetails>
+  <p>No such ID exist</p>
+</ng-template>
+<hr style="border: 2px solid black;">
+
+
+<!-- Delete Details using ID -->
+<h2>Delete</h2>
+<label for="deleteItemId">Enter PaymentID to Delete: </label>
+<input type="number" id="deleteItemId" [(ngModel)]="deleteItemId" name="deleteItemId">
+<button (click)="deleteItem()">Delete</button>
+<hr style="border: 2px solid black;">
+
+<!-- Update Details using ID 
+<h2>Update</h2>
+<label for="updateItemId">Enter ID to Update</label>
+<input type="number" id="updateItemId" [(ngModel)]="updateItemId" name="updateItemId">
+<br>
+<label for="updatedData">Enter CardOwnerName</label>
+<input type="text" id="updatedData" [(ngModel)]="updatedData.cardOwnerName" name="updateItemId"><br>
+<label for="updatedData">Enter CardNumber</label>
+<input type="text" id="updatedData" [(ngModel)]="updatedData.cardNumber" name="updateItemId"><br>
+<label for="updatedData">Enter Expiry Date</label>
+<input type="text" id="updatedData" [(ngModel)]="updatedData.expirationDate" name="updateItemId"><br>
+<label for="updatedData">Enter Security Code</label>
+<input type="text" id="updatedData" [(ngModel)]="updatedData.securityCode" name="updateItemId"><br>
+<button (click)="updateDetails()">Update</button>
+-->
+<hr>
